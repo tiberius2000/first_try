@@ -86,17 +86,6 @@ else
 	SRC_DOMAIN="ERROR"
 fi
 
-#Set SRC_HOST/PORT variable (identifies the the source repository domain
-
-if [[ $TGT_REPO = "TEST" || $TGT_REPO = "UAT" || $TGT_REPO = "VCT" ]] then
-		TGT_HOST="oratst01"
-		TGT_PORT="9005"
-elif [[ $TGT_REPO = "PROD" ]] then
-		TGT_HOST="oraprd01"
-	    TGT_PORT="9005"
-else
-	TGT_DOMAIN="ERROR"
-fi
 
 #Test file entry for target environment and deployment status
 function TestFileEntryTgtEnv
