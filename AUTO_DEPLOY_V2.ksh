@@ -1,15 +1,13 @@
 #! /bin/ksh
 
 ####################################################
-# Name: Auto-Deploy				   				   #
-# Author: Informatica Profession Services	       #
-# Date: 09/01/2011				                   #
-# Purpose: Read object names from file, add to	   #
-# deployment group, and deploy automatically	   #
+# Name: Auto-Deploy				   			
+# Author: Informatica Profession Services	     
+# Date: 09/01/2011				          
+# Purpose: Read object names from file, add to	   
+# deployment group, and deploy automatically	   
 ####################################################
-# Created By: Craig J Baumgartner		           #
-# Date: 9/7/2011				                   #
-####################################################
+
 
 # Define Variables
 
