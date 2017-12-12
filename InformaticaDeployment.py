@@ -1,3 +1,6 @@
+## Informatica PowerCenter Deployment Script 
+## Will create several functions and then execute them.
+
 import subprocess
 import os
 from subprocess import *
@@ -5,7 +8,7 @@ import sys
 import platform
 
 
-#global variables declarations
+#Declare global variables
 currentDir=''
 pmrepPath=''
 domainFile=''
@@ -92,6 +95,8 @@ def check_platform():
 
                 
 #start of the main program body
+
+## First check to what O/S is being used Windows or Linux
 if platform.system()=='Windows':
           os.system('cls')
 elif platform.system()=='Linux':
@@ -101,9 +106,10 @@ check_platform()
 lines=open(domainFile,'r').readlines()
 os.chdir(pmrepPath)
 if platForm == 'Windows':
-        logFileLoc=currentDir.strip()+"\LogFiles\logPermissions.txt"
+        logFileLoc=currentDir.strip()+"\LogFiles\InfaAutoDeploy.txt"
 elif platForm == 'Linux':
-        logFileLoc=currentDir.strip()+"/LogFiles/logPermissions.txt"
+        logFileLoc=currentDir.strip()+"/LogFiles/InfaAutoDeploy.txt"
+## Read input from environment files contained in set_env
 for line in lines:
         fields=line.split(',')
         Repository=fields[0]
@@ -112,22 +118,26 @@ for line in lines:
         return_code=connect_to_repo(Repository,Domain,User)
         if return_code:
                 continue
-        permissionFile=raw_input("\n***********************************INPUT*******************************\n\nPlease provide the name of the file, Consists of Permission List: ")
+        DeploymentFile="deploymentobjectlist.csv"  ##list deployment input file
+
         if platForm == 'Windows':
-                permissionFile=currentDir.strip()+"\\"+permissionFile.strip()
+                DeploymentFile=currentDir.strip()+"\\"+DeploymentFile.strip()
         elif platForm == 'Linux':
-                permissionFile=currentDir.strip()+"/"+permissionFile.strip()
-        permission_list_lines=open(permissionFile,'r').readlines()
-        permission_list_lines=permission_list_lines[1:]
+                DeploymentFile=currentDir.strip()+"/"+DeploymentFile.strip()
+        deploymentfile_lines=open(DeploymentFile,'r').readlines()
+       deploymentfile_lines=deploymentfile_lines[1:]
         create_output_directories()
-        for list_permissions in permission_list_lines:
-                field=list_permissions.split(',')
-                ObjType=field[0].strip()
-                ObjName=field[1].strip()
-                GrpName=field[2].strip()
-                seqDomain=field[3].strip()
-                permission=field[4].strip()     
-                command="pmrep assignpermission -o "+ObjType+" -n "+ObjName+" -g "+GrpName+" -s "+seqDomain+" -p "+permission
+        for deployments in deploymentfile_lines:
+                field=deployments.split(',')
+                SRC_Repo=field[0].strip()
+                TGT_Repo=field[1].strip()
+		Folder=field[2].strip()
+                ObjName=field[3].strip()
+		ObjType=field[4].strip()
+                GrpName=field[5].strip()
+                Deploy=field[6].strip()
+                ParentOnly=field[7].strip()     
+                command="pmrep deploydeploymentgroup -p "+GrpName+" -c "+ObjName+" -g "+GrpName+" -s "+seqDomain+" -p "+permission
                 execute_pmrep_command(command,logFileLoc.strip())
         print "\n\nPermission is assigned to the objects. \n\nFor more details please refer 'logPermission.txt' in LogFiles directory.\n\n***********************************************************************"
 		
