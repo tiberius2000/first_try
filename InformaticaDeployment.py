@@ -1,5 +1,6 @@
 ## Informatica PowerCenter Deployment Script 
 ## Will create several functions and then execute them.
+## CreateLabel, CreateDeploymentGroup, ApplyLable_AddtoGroup, DeployDeploymentGroup.
 
 import subprocess
 import os
@@ -137,9 +138,9 @@ for line in lines:
                 GrpName=field[5].strip()
                 Deploy=field[6].strip()
                 ParentOnly=field[7].strip()     
-                command="pmrep deploydeploymentgroup -p "+GrpName+" -c "+ObjName+" -g "+GrpName+" -s "+seqDomain+" -p "+permission
+                command="pmrep deploydeploymentgroup -p "+GrpName+" -r "+TGTRepo+" -c "+xmlfile+" -n "user
                 execute_pmrep_command(command,logFileLoc.strip())
-        print "\n\nPermission is assigned to the objects. \n\nFor more details please refer 'logPermission.txt' in LogFiles directory.\n\n***********************************************************************"
+        print "\n\nPermission is assigned to the objects. \n\nFor more details please refer 'InfaAutoDeploy.txt' in LogFiles directory.\n\n***********************************************************************"
 		
 #END PROGRAM
 
