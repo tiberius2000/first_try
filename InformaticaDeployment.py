@@ -1,6 +1,6 @@
 ## Informatica PowerCenter Deployment Script 
 ## Will create several functions and then execute them.
-## CreateLabel, CreateDeploymentGroup, ApplyLable_AddtoGroup, DeployDeploymentGroup.
+## CreateControlFile, CreateLabel, CreateDeploymentGroup, ApplyLable_AddtoGroup, DeployDeploymentGroup.
 
 import subprocess
 import os
